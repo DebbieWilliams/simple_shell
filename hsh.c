@@ -9,7 +9,10 @@
  */
 int hsh(info_t *inf, char **argv)
 {
+	(void)inf;  /* Suppress unused parameter warning */
+	(void)argv; /* Suppress unused parameter warning */
 	/* ... function body ... */
+	return (0);  /* Assuming normal exit */
 }
 
 /**
@@ -21,7 +24,9 @@ int hsh(info_t *inf, char **argv)
  */
 int execute_builtin(info_t *inf)
 {
+	(void)inf;  /* Suppress unused parameter warning */
 	/* ... function body ... */
+	return (-1);  /* Replace with the actual return value */
 }
 
 /**
@@ -32,6 +37,7 @@ int execute_builtin(info_t *inf)
  */
 void execute_command(info_t *inf)
 {
+	(void)inf;  /* Suppress unused parameter warning */
 	/* ... function body ... */
 }
 
@@ -43,5 +49,6 @@ void execute_command(info_t *inf)
  */
 void create_process(info_t *inf)
 {
+	(void)inf;  /* Suppress unused parameter warning */
 	/* ... function body ... */
 }

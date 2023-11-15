@@ -12,32 +12,31 @@
 #include <fcntl.h>
 #include <errno.h>
 
-/*BUFFER SIZES*/
+/* BUFFER SIZES */
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
 
-/*COMMAND TYPES*/
-#define CMD_NORM	0
-#define CMD_OR		1
-#define CMD_AND		2
-#define CMD_CHAIN	3
+/* COMMAND TYPES */
+#define CMD_NORM 0
+#define CMD_OR 1
+#define CMD_AND 2
+#define CMD_CHAIN 3
 
-/*CONVERSION OPTIONS*/
-#define CONVERT_LOWERCASE	1
-#define CONVERT_UNSIGNED	2
+/* CONVERSION OPTIONS */
+#define CONVERT_LOWERCASE 1
+#define CONVERT_UNSIGNED 2
 
-/*INPUT METHODS*/
+/* INPUT METHODS */
 #define USE_GETLINE 0
 #define USE_STRTOK 0
 
-/*HISTORY-RELATED CONSTANTS*/
-#define HIST_FILE	".simple_shell_history"
-#define HIST_MAX	4096
+/* HISTORY-RELATED CONSTANTS */
+#define HIST_FILE ".simple_shell_history"
+#define HIST_MAX 4096
 
-/*ENVIRONMENT VARIABLE*/
+/* ENVIRONMENT VARIABLE */
 extern char **environ;
-
 
 /**
  * struct liststr - singly linked list.
@@ -47,21 +46,21 @@ extern char **environ;
  */
 typedef struct liststr
 {
-	int num;
-	char *str;
-	struct liststr *next;
+    int num;
+    char *str;
+    struct liststr *next;
 } list_t;
 
 /**
- * struct passinfo - contains pseudo-arguements to pass into a function,
- *		allowing uniform prototype for function pointer struct
- * @arg: a string generated from getline containing arguements
+ * struct passinfo - contains pseudo-arguments to pass into a function,
+ *      allowing a uniform prototype for the function pointer struct
+ * @arg: a string generated from getline containing arguments
  * @argv: an array of strings generated from arg
  * @path: a string path for the current command
  * @argc: the argument count
  * @line_count: the error count
  * @err_num: the error code for exit()s
- * @linecount_flag: if on count this line of input
+ * @linecount_flag: if on, count this line of input
  * @fname: the program filename
  * @env: linked list local copy of environ
  * @environ: custom modified copy of environ from LL env
@@ -76,30 +75,30 @@ typedef struct liststr
  */
 typedef struct passinfo
 {
-	char *arg;
-	char **argv;
-	char *path;
-	int argc;
-	unsigned int line_count;
-	int err_num;
-	int linecount_flag;
-	char *fname;
-	list_t *env;
-	list_t *history;
-	list_t *alias;
-	char **environ;
-	int env_changed;
-	int status;
+    char *arg;
+    char **argv;
+    char *path;
+    int argc;
+    unsigned int line_count;
+    int err_num;
+    int linecount_flag;
+    char *fname;
+    list_t *env;
+    list_t *history;
+    list_t *alias;
+    char **environ;
+    int env_changed;
+    int status;
 
-	char **cmd_buffer;
-	int cmd_buf_type;
-	int readfd;
-	int histcount;
+    char **cmd_buffer;
+    int cmd_buf_type;
+    int readfd;
+    int histcount;
 } info_t;
 
 #define INFO_INIT \
-{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-	0, 0, 0}
+    {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+     0, 0, 0}
 
 /**
  * struct builtin- Structure that holds information about
@@ -112,10 +111,9 @@ typedef struct passinfo
  */
 typedef struct builtin
 {
-	char *type;
-	int (*func)(info_t *);
+    char *type;
+    int (*func)(info_t *);
 } builtin_table;
-
 
 int hsh(info_t *, char **);
 int find_builtin(info_t *);
@@ -197,5 +195,52 @@ int replace_string(char **, char *);
 int _cd(info_t *info);
 int _cd_home(info_t *info);
 int _cd_prev(info_t *info, char *cwd);
+
+/* Include necessary headers */
+
+/* Function declarations */
+int exit_shell(info_t *inf);
+int shell_cd(info_t *info);
+int navigate_home(info_t *info);
+int navigate_prev(info_t *info, char *current_dir);
+int shell_help(info_t *inf);
+
+/* Add other declarations as needed */
+
+/* Include necessary libraries and define functions used in shell.c*/
+
+int is_delim(char c, char *delimiters);
+
+#include <stddef.h>
+
+/* Your existing structure and necessary includes */
+
+/* Function declarations */
+
+/* env_vars.c */
+int display_env_vars(info_t *details);
+char *find_env_value(info_t *details, const char *name);
+int set_env_variable(info_t *details);
+int remove_env_variable(info_t *details);
+int fill_env_list(info_t *details);
+
+/* Missing functions declarations */
+void display_str_list(list_t *list);
+char *match_prefix(const char *str, const char *prefix);
+void error_puts(const char *message);
+int update_env(info_t *details, const char *name, const char *value);
+int unset_environment(info_t *details, const char *name);
+void append_node(list_t **head, const char *str);
+
+#include <stddef.h>
+
+/* Your existing structure and necessary includes */
+
+/* Function declarations */
+
+/* ext_string.c */
+char *_strncpy(char *dest, const char *src, size_t n);
+char *_strncat(char *dest, const char *src, size_t n);
+char *_strchr(const char *s, int c);
 
 #endif /* SHELL_H */

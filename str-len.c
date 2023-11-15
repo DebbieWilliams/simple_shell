@@ -10,11 +10,11 @@ int string_length(char *s)
 {
 	int length = 0;
 
-if (s == NULL)
-	return (0);
+	if (s == NULL)
+		return (0);
 
-while (s[length])
-	length++;
+	while (s[length])
+		length++;
 
 	return (length);
 }
@@ -28,10 +28,10 @@ while (s[length])
  */
 int string_compare(char *s1, char *s2)
 {
-while (*s1 && (*s1 == *s2))
+	while (*s1 && (*s1 == *s2))
 	{
-	s1++;
-	s2++;
+		s1++;
+		s2++;
 	}
 
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
@@ -48,9 +48,9 @@ char *string_concatenate(char *dest, const char *src)
 {
 	char *dest_end = dest + string_length(dest);
 
-while (*src)
+	while (*src)
 	{
-	*dest_end++ = *src++;
+		*dest_end++ = *src++;
 	}
 
 	*dest_end = '\0';
@@ -67,10 +67,10 @@ while (*src)
  */
 char *string_starts_with(const char *str, const char *prefix)
 {
-while (*prefix)
+	while (*prefix)
 	{
-if (*prefix++ != *str++)
-	return (NULL);
+		if (*prefix++ != *str++)
+			return (NULL);
 	}
 
 	return ((char *)(str));

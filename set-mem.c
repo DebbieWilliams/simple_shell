@@ -1,3 +1,4 @@
+
 #include "shell.h"
 
 /**
@@ -11,8 +12,8 @@ char *set_mem(char *ptr, int val, size_t bytes)
 {
 	char *start = ptr;
 
-while (bytes--)
-	*ptr++ = (char)val;
+	while (bytes--)
+		*ptr++ = (char)val;
 
 	return (start);
 }
@@ -25,11 +26,14 @@ void release_memory(char **array)
 {
 	char **temp = array;
 
-if (!array)
-	return;
+	if (!array)
+		return;
 
-while (*array)
-	free(*array++);
+	while (*array)
+	{
+		free(*array);
+		array++;
+	}
 
 	free(temp);
 }
@@ -45,25 +49,26 @@ void *resize_memory(void *old, unsigned int old_size, unsigned int new_size)
 {
 	char *new_block;
 
-if (new_size == 0 && old)
+	if (new_size == 0 && old)
 	{
-	free(old);
-	return (NULL);
+		free(old);
+		return (NULL);
 	}
 
-if (!old)
-	return (malloc(new_size));
+	if (!old)
+		return (malloc(new_size));
 
-if (new_size == old_size)
-	return (old);
+	if (new_size == old_size)
+		return (old);
 
 	new_block = malloc(new_size);
-if (!new_block)
-	return (NULL);
+	if (!new_block)
+		return (NULL);
 
 	old_size = (old_size < new_size) ? old_size : new_size;
-while (old_size--)
-	new_block[old_size] = ((char *)old)[old_size];
+
+	while (old_size--)
+		new_block[old_size] = ((char *)old)[old_size];
 
 	free(old);
 	return (new_block);

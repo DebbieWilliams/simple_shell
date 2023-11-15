@@ -10,13 +10,13 @@ char *copy_str(char *dst, const char *src)
 {
 	int idx = 0;
 
-if (!src || dst == src)
-	return (dst);
+	if (!src || dst == src)
+		return (dst);
 
-while (src[idx])
+	while (src[idx])
 	{
-	dst[idx] = src[idx];
-	idx++;
+		dst[idx] = src[idx];
+		idx++;
 	}
 
 	dst[idx] = '\0';
@@ -34,35 +34,23 @@ char *create_duplicate(const char *orig)
 	char *copy;
 	int len = 0;
 
-if (!orig)
-	return (NULL);
+	if (!orig)
+		return (NULL);
 
-while (orig[len])
-	len++;
+	while (orig[len])
+		len++;
 
 	copy = (char *)malloc(sizeof(char) * (len + 1));
 
-if (copy == NULL)
-	return (NULL);
+	if (copy == NULL)
+		return (NULL);
 
-while (len--)
-	copy[len] = orig[len];
+	while (len--)
+		copy[len] = orig[len];
 
-	copy[len] = '\0';  /* Add terminating null byte */
+	copy[len] = '\0'; /* Add terminating null byte */
 
 	return (copy);
-}
-
-/**
- * print_str - Outputs a string to stdout.
- * @str: String to be output.
- */
-void print_str(char *str)
-{
-while (*str)
-	{
-	print_char(*(str++));
-	}
 }
 
 /**
@@ -75,14 +63,26 @@ int print_char(char c)
 	static int buff_pos;
 	static char buff[WRITE_BUF_SIZE];
 
-if (c == BUF_FLUSH || buff_pos >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || buff_pos >= WRITE_BUF_SIZE)
 	{
-	write(1, buff, buff_pos);
-	buff_pos = 0;
+		write(1, buff, buff_pos);
+		buff_pos = 0;
 	}
 
-if (c != BUF_FLUSH)
-	buff[buff_pos++] = c;
+	if (c != BUF_FLUSH)
+		buff[buff_pos++] = c;
 
 	return (1);
+}
+
+/**
+ * print_str - Outputs a string to stdout.
+ * @str: String to be output.
+ */
+void print_str(char *str)
+{
+	while (*str)
+	{
+		print_char(*(str++));
+	}
 }
