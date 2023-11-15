@@ -9,11 +9,11 @@
 size_t count_list_elements(const list_t *list)
 {
 	size_t count = 0;
-while (list)
 
+	while (list)
 	{
-	count++;
-	list = list->next;
+		count++;
+		list = list->next;
 	}
 	return (count);
 }
@@ -31,29 +31,29 @@ char **convert_list_to_array(list_t *start)
 	list_t *temp_node = start;
 	size_t i;
 
-if (!start || array_size == 0)
-	return (NULL);
+	if (!start || array_size == 0)
+		return (NULL);
 
 	str_array = malloc((array_size + 1) * sizeof(char *));
-if (!str_array)
-	return (NULL);
+	if (!str_array)
+		return (NULL);
 
-for (i = 0; i < array_size; ++i)
+	for (i = 0; i < array_size; ++i)
 	{
-	str_array[i] = malloc((_strlen(temp_node->str) + 1) * sizeof(char));
-if (!str_array[i])
-	{
-
-		/* Free previously allocated strings if malloc fails */
-while (i > 0)
-	{
-	free(str_array[--i]);
-	}
-	free(str_array);
-	return (NULL);
-	}
-	_strcpy(str_array[i], temp_node->str);
-	temp_node = temp_node->next;
+		str_array[i] = malloc((_strlen(temp_node->str) + 1) * sizeof(char));
+		if (!str_array[i])
+		{
+			/* Free previously allocated strings if malloc fails */
+			while (i > 0)
+			{
+				free(str_array[--i]);
+			}
+			free(str_array);
+			return (NULL);
+		}
+		strncpy(str_array[i], temp_node->str, _strlen(temp_node->str));
+		/* Fix the third argument */
+		temp_node = temp_node->next;
 	}
 	str_array[array_size] = NULL;
 	return (str_array);
@@ -67,15 +67,17 @@ while (i > 0)
 size_t output_list(const list_t *list)
 {
 	size_t count = 0;
-while (list)
+
+	while (list)
 	{
-	_puts(convert_number(list->num, 10, FALSE));
-	_putchar(':');
-	_putchar(' ');
-	_puts(list->str ? list->str : "(nil)");
-	_putchar('\n');
-	list = list->next;
-	count++;
+		_puts(convert_number(list->num, 10, 0));
+		/* Assuming FALSE was meant to be 0 */
+		_putchar(':');
+		_putchar(' ');
+		_puts(list->str ? list->str : "(nil)");
+		_putchar('\n');
+		list = list->next;
+		count++;
 	}
 	return (count);
 }
@@ -92,13 +94,13 @@ list_t *find_node_by_prefix(list_t *head, char *prefix, char next_char)
 {
 	char *match = NULL;
 
-while (head)
+	while (head)
 	{
-	match = starts_with(head->str, prefix);
-if (match && (next_char == -1 || *match == next_char))
-	return (head);
+		match = starts_with(head->str, prefix);
+		if (match && (next_char == -1 || *match == next_char))
+			return (head);
 
-	head = head->next;
+		head = head->next;
 	}
 	return (NULL);
 }
@@ -113,13 +115,13 @@ ssize_t find_node_index(list_t *initial, list_t *target)
 {
 	size_t index = 0;
 
-while (initial)
+	while (initial)
 	{
-if (initial == target)
-	return (ssize_t index);
+		if (initial == target)
+			return ((ssize_t)index);
 
-	initial = initial->next;
-	index++;
+		initial = initial->next;
+		index++;
 	}
 	return (-1);
 }

@@ -244,3 +244,17 @@ char *_strncat(char *dest, const char *src, size_t n);
 char *_strchr(const char *s, int c);
 
 #endif /* SHELL_H */
+
+
+
+
+
+
+
+
+
+
+
+
+
+

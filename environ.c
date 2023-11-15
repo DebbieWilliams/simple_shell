@@ -1,11 +1,12 @@
 #include "shell.h"
+#include <string.h>  /* Include the string.h header for strcpy and strcat */
 
 /**
-* generate_environment_copy - Generates duplicate of existing environment
-* @primary_info: Pointer to structure containing arguments
-*
-* Return: Pointer to copy of environment if successful, else NULL
-*/
+ *generate_environment_copy - Generates a duplicate of the existing environment
+ *@primary_info: Pointer to structure containing arguments
+ *
+ *Return: Pointer to a copy of the environment if successful, else NULL
+ */
 char **generate_environment_copy(info_t *primary_info)
 {
 	if (!primary_info->environ || primary_info->env_changed)
@@ -18,12 +19,12 @@ char **generate_environment_copy(info_t *primary_info)
 }
 
 /**
-* remove_env_var - Erases an environment variable from the list
-* @primary_info: Pointer to structure containing potential arguments
-* @environment_var: Name of environmental variable to be removed
-*
-* Return: 1 if the variable was successfully removed, otherwise 0
-*/
+ * remove_env_var - Erases an environment variable from the list
+ * @primary_info: Pointer to structure containing potential arguments
+ * @environment_var: Name of environmental variable to be removed
+ *
+ * Return: 1 if the variable was successfully removed, otherwise 0
+ */
 int remove_env_var(info_t *primary_info, char *environment_var)
 {
 	list_t *temp_node = primary_info->env;
@@ -54,13 +55,13 @@ int remove_env_var(info_t *primary_info, char *environment_var)
 }
 
 /**
-* update_environment_var - Updates or sets the value of an environment variable
-* @primary_info: Pointer to structure with potential arguments
-* @environment_var: Environment variable to be updated or set
-* @new_value: New value to be assigned to the environment variable
-*
-* Return: Always returns 0
-*/
+ *update_environment_var - Updates or sets the value of an environment variable
+ *@primary_info: Pointer to structure with potential arguments
+ *@environment_var: Environment variable to be updated or set
+ *@new_value: New value to be assigned to the environment variable
+ *
+ *Return: Always returns 0
+ */
 int update_environment_var(
 	info_t *primary_info,
 	char *environment_var,
@@ -74,13 +75,13 @@ int update_environment_var(
 	if (!environment_var || !new_value)
 		return (0);
 
-	buf = malloc(_strlen(environment_var) + _strlen(new_value) + 2);
+	buf = malloc(strlen(environment_var) + strlen(new_value) + 2);
 	if (!buf)
 		return (1);
 
-	_strcpy(buf, environment_var);
-	_strcat(buf, "=");
-	_strcat(buf, new_value);
+	strcpy(buf, environment_var);
+	strcat(buf, "=");
+	strcat(buf, new_value);
 
 	temp_node = primary_info->env;
 	while (temp_node)
