@@ -2,7 +2,7 @@
 
 /**
  * InteractiveMode - Check if the shell operates interactively
- * @info: Pointer to the infomation structure
+ * @info: Pointer to the information structure
  *
  * Return: 1 if in interactive mode, 0 if not
  */
@@ -12,17 +12,17 @@ int InteractiveMode(info_t *info)
 }
 
 /**
- * CheckDelimeter - Evaluates if a character is a delimeter
+ * CheckDelimeter - Evaluates if a character is a delimiter
  * @charToCheck: Character under scrutiny
- * @delimiter: String containing delimeter characters
+ * @delimiter: String containing delimiter characters
  *
  * Return: 1 if character is a delimiter, 0 otherwise
  */
 int CheckDelimeter(char charToCheck, char *delimiter)
 {
-while (*delimiter)
-if (*delimiter++ == charToCheck)
-	return (1);
+	while (*delimiter)
+		if (*delimiter++ == charToCheck)
+			return (1);
 	return (0);
 }
 
@@ -34,10 +34,10 @@ if (*delimiter++ == charToCheck)
  */
 int IsAlpha(int ch)
 {
-if (('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z'))
-	return (1);
-else
-	return (0);
+	if (('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z'))
+		return (1);
+	else
+		return (0);
 }
 
 /**
@@ -52,18 +52,18 @@ int StringToInteger(char *str)
 	int index, sign = 1, phase = 0, number;
 	unsigned int result = 0;
 
-for (index = 0; str[index] && phase != 2; index++)
+	for (index = 0; str[index] && phase != 2; index++)
 	{
-if (str[index] == '-')
-	sign *= -1;
+		if (str[index] == '-')
+			sign *= -1;
 
-if (str[index] >= '0' && str[index] <= '9')
-	{
-	phase = 1;
-	result = result * 10 + (str[index] - '0');
-	}
-else if (phase == 1)
-	phase = 2;
+		if (str[index] >= '0' && str[index] <= '9')
+		{
+			phase = 1;
+			result = result * 10 + (str[index] - '0');
+		}
+		else if (phase == 1)
+			phase = 2;
 	}
 
 	number = (sign == -1) ? -((int)result) : (int)result;
